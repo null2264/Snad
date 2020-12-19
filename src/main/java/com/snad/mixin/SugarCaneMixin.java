@@ -10,8 +10,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SugarCaneBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldView;
 
 @Mixin(SugarCaneBlock.class)
 public class SugarCaneMixin extends Block
@@ -26,12 +24,12 @@ public class SugarCaneMixin extends Block
         method = "canPlaceAt(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/WorldView;Lnet/minecraft/util/math/BlockPos;)Z",
         at = @At
         (
-            value = "INVOKE",
-            target = "net/minecraft/block/BlockState"
+            value = "INVOKE_ASSIGN",
+            target = "(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/BlockState;"
         ),
         ordinal = 1
     )
-    public BlockState replaceBlockState(BlockState state, BlockState state2, WorldView world, BlockPos pos)
+    public BlockState replaceBlockState(BlockState state)
     {
         if (state.isIn(ModTags.SNAD))
         {
