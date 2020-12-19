@@ -21,10 +21,22 @@ public class SugarCaneMixin extends Block
         super(settings);
     }
     
-    @Inject(method = "canPlaceAt(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/WorldView;Lnet/minecraft/util/math/BlockPos;)Z", at = @At("RETURN"), cancellable = true)
-    public void canPlaceAt(BlockState state, WorldView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir)
+    @ModifyVariable
+    (
+        method = "canPlaceAt(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/WorldView;Lnet/minecraft/util/math/BlockPos;)Z",
+        at = @At
+        (
+            value = "INVOKE",
+            target = "net/minecraft/block/BlockState"
+        ),
+        ordinal = 1
+    )
+    public BlockState replaceBlockState(BlockState state, BlockState state2, WorldView world, BlockPos pos)
     {
-        BlockState blockState2 = world.getBlockState(pos.down());
-        cir.setReturnValue(blockState2.isIn(ModTags.SNAD) || cir.getReturnValue());
+        if (state.isIn(ModTags.SNAD))
+        {
+            state = Blocks.SAND.getDefaultState();
+        }
+        return state;
     }
 }
