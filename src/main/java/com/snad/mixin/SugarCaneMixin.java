@@ -25,7 +25,7 @@ public class SugarCaneMixin extends Block
         at = @At
         (
             value = "INVOKE_ASSIGN",
-            target = "(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/BlockState;"
+            target = "Lnet/minecraft/world/WorldView;getBlockState(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/BlockState;"
         ),
         ordinal = 1
     )
